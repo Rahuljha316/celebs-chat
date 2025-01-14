@@ -1,7 +1,11 @@
+import { SignedIn, UserButton } from "@clerk/nextjs";
+
 const RootPage = () => {
     return (
         <div>
-            this is a root page
+            <SignedIn>
+                <UserButton />
+              </SignedIn>
         </div>
     )
 }
