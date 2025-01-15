@@ -1,11 +1,10 @@
+import { SearchInput } from "@/components/search-input";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 
 const RootPage = () => {
     return (
-        <div>
-            <SignedIn>
-                <UserButton />
-              </SignedIn>
+        <div className="h-full p-4 space-y-2">
+            <SearchInput />
         </div>
     )
 }
