@@ -4,9 +4,12 @@ import * as z from 'zod'
 import { Category, Companion } from "@prisma/client"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Separator } from '@/components/ui/separator'
 import { ImageUpload } from '@/components/image-upload'
+import { Input } from '@/components/ui/input'
+import { Select, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { SelectContent } from '@radix-ui/react-select'
 
 interface CompanionFormProps {
     initialData: Companion | null,
@@ -76,10 +79,93 @@ export const CompanionForm = ({
                                         value={field.value}
                                     />
                                 </FormControl>
+                                <FormMessage />
                             </FormItem>
 
                         )}
                     />
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                        <FormField 
+                            name='name'
+                            control={form.control}
+                            render={( { field })=> (
+                                <FormItem className='col-span-2 md:col-span-1'>
+                                    <FormLabel>
+                                            Name
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input 
+                                            disabled={isLoading}
+                                            placeholder='Elon Musk'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        This is how your Celeb Chat will be named
+                                    </FormDescription>
+                                <FormMessage />
+
+                                </FormItem>
+                            )}
+                        />
+                        <FormField 
+                            name='description'
+                            control={form.control}
+                            render={( { field })=> (
+                                <FormItem className='col-span-2 md:col-span-1'>
+                                    <FormLabel>
+                                            Description
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input 
+                                            disabled={isLoading}
+                                            placeholder='CEO & Founder of Tesla'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Short Description for celeb chat
+                                    </FormDescription>
+                                <FormMessage />
+
+                                </FormItem>
+                            )}
+                        />
+                        <FormField 
+                            name='categoryId'
+                            control={form.control}
+                            render={( { field })=> (
+                                <FormItem className='col-span-2 md:col-span-1'>
+                                    <FormLabel>
+                                            Category
+                                    </FormLabel>
+                                    <Select>
+                                    <FormControl>
+                                        <SelectTrigger className='bg-background'>
+                                            <SelectValue 
+                                                defaultValue={field.value}
+                                                placeholder='Select a category'
+                                            />
+
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {categories.map( (item) => (
+                                            <SelectItem key={item.id} value={item.id}>
+                                                {item.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                    </Select>
+                                    <FormDescription>
+                                        select a category
+                                    </FormDescription>
+                                
+
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                 </form>
             </Form>
         </div>
